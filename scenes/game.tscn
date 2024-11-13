@@ -21,6 +21,25 @@ layer = -5
 offset_right = 1920.0
 offset_bottom = 1081.0
 
+[node name="Player" parent="." instance=ExtResource("1_fjwbn")]
+position = Vector2(928, 553)
+
+[node name="Camera2D" type="Camera2D" parent="Player"]
+position = Vector2(-25, 13)
+
+[node name="Path2D" type="Path2D" parent="Player"]
+position = Vector2(-986, -527)
+curve = SubResource("Curve2D_658ld")
+
+[node name="PathFollow2D" type="PathFollow2D" parent="Player/Path2D"]
+unique_name_in_owner = true
+position = Vector2(-166, -145)
+rotation = 0.00317603
+
+[node name="Timer" type="Timer" parent="."]
+wait_time = 3.0
+autostart = true
+
 [node name="GameOverScreen" type="CanvasLayer" parent="."]
 unique_name_in_owner = true
 visible = false
@@ -71,44 +90,26 @@ theme_override_font_sizes/font_size = 71
 text = "YOU HAVE WON"
 horizontal_alignment = 1
 
-[node name="Player" parent="." instance=ExtResource("1_fjwbn")]
-position = Vector2(986, 527)
+[node name="PineTreess" type="Node2D" parent="."]
+y_sort_enabled = true
 
-[node name="Camera2D" type="Camera2D" parent="Player"]
-position = Vector2(-25, 13)
-
-[node name="Path2D" type="Path2D" parent="Player"]
-position = Vector2(-986, -527)
-curve = SubResource("Curve2D_658ld")
-
-[node name="PathFollow2D" type="PathFollow2D" parent="Player/Path2D"]
-unique_name_in_owner = true
-position = Vector2(-166, -145)
-rotation = 0.00317603
-
-[node name="Timer" type="Timer" parent="."]
-wait_time = 3.0
-autostart = true
-
-[node name="PineTrees" type="Node" parent="."]
-
-[node name="PineTree" parent="PineTrees" instance=ExtResource("2_s0kfs")]
+[node name="PineTree" parent="PineTreess" instance=ExtResource("2_s0kfs")]
 position = Vector2(261, 808)
 
-[node name="PineTree2" parent="PineTrees" instance=ExtResource("2_s0kfs")]
+[node name="PineTree2" parent="PineTreess" instance=ExtResource("2_s0kfs")]
 position = Vector2(305, 831)
 
-[node name="PineTree3" parent="PineTrees" instance=ExtResource("2_s0kfs")]
+[node name="PineTree3" parent="PineTreess" instance=ExtResource("2_s0kfs")]
 position = Vector2(1479, 782)
 
-[node name="PineTree4" parent="PineTrees" instance=ExtResource("2_s0kfs")]
+[node name="PineTree4" parent="PineTreess" instance=ExtResource("2_s0kfs")]
 position = Vector2(460, 267)
 
-[node name="PineTree5" parent="PineTrees" instance=ExtResource("2_s0kfs")]
+[node name="PineTree5" parent="PineTreess" instance=ExtResource("2_s0kfs")]
 position = Vector2(1360, 262)
 
-[node name="PineTree6" parent="PineTrees" instance=ExtResource("2_s0kfs")]
-position = Vector2(576, 560)
+[node name="PineTree6" parent="PineTreess" instance=ExtResource("2_s0kfs")]
+position = Vector2(610, 555)
 
 [connection signal="health_depleted" from="Player" to="." method="_on_player_health_depleted"]
 [connection signal="you_won" from="Player" to="." method="_on_player_you_won"]
