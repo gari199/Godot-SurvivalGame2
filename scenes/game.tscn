@@ -1,11 +1,18 @@
-[gd_scene load_steps=4 format=3 uid="uid://o27tlpiq3mqv"]
+[gd_scene load_steps=5 format=3 uid="uid://o27tlpiq3mqv"]
 
 [ext_resource type="PackedScene" uid="uid://bhnrrw700scer" path="res://scenes/player.tscn" id="1_fjwbn"]
+[ext_resource type="Script" path="res://scenes/game.gd" id="1_ryyaf"]
 [ext_resource type="PackedScene" uid="uid://dqiug3661ivsv" path="res://scenes/pine_tree.tscn" id="2_s0kfs"]
-[ext_resource type="PackedScene" uid="uid://chfitayhvduyb" path="res://scenes/enemy.tscn" id="3_0u4pr"]
+
+[sub_resource type="Curve2D" id="Curve2D_658ld"]
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, -166, -145, 0, 0, 0, 0, 2038, -138, 0, 0, 0, 0, 2049, 1154, 0, 0, 0, 0, -163, 1149, 0, 0, 0, 0, -163, -142)
+}
+point_count = 5
 
 [node name="Game" type="Node2D"]
 y_sort_enabled = true
+script = ExtResource("1_ryyaf")
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 layer = -5
@@ -19,6 +26,15 @@ position = Vector2(986, 527)
 
 [node name="Camera2D" type="Camera2D" parent="Player"]
 position = Vector2(-25, 13)
+
+[node name="Path2D" type="Path2D" parent="Player"]
+position = Vector2(-986, -527)
+curve = SubResource("Curve2D_658ld")
+
+[node name="PathFollow2D" type="PathFollow2D" parent="Player/Path2D"]
+unique_name_in_owner = true
+position = Vector2(-166, -145)
+rotation = 0.00317603
 
 [node name="PineTrees" type="Node" parent="."]
 
@@ -40,16 +56,39 @@ position = Vector2(1360, 262)
 [node name="PineTree6" parent="PineTrees" instance=ExtResource("2_s0kfs")]
 position = Vector2(576, 560)
 
-[node name="Enemies" type="Node" parent="."]
+[node name="Timer" type="Timer" parent="."]
+wait_time = 0.3
+autostart = true
 
-[node name="Enemy" parent="Enemies" instance=ExtResource("3_0u4pr")]
-position = Vector2(1441, 509)
+[node name="GameOverScreen" type="CanvasLayer" parent="."]
+unique_name_in_owner = true
+visible = false
 
-[node name="Enemy2" parent="Enemies" instance=ExtResource("3_0u4pr")]
-position = Vector2(756, 273)
+[node name="ColorRect" type="ColorRect" parent="GameOverScreen"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_right = 3.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0, 0, 0.568627)
 
-[node name="Enemy3" parent="Enemies" instance=ExtResource("3_0u4pr")]
-position = Vector2(639, 883)
+[node name="Label" type="Label" parent="GameOverScreen/ColorRect"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -43.5
+offset_top = -11.5
+offset_right = 43.5
+offset_bottom = 11.5
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_colors/font_color = Color(0.92549, 0, 0, 1)
+theme_override_font_sizes/font_size = 57
+text = "Game Over"
 
-[node name="Enemy4" parent="Enemies" instance=ExtResource("3_0u4pr")]
-position = Vector2(206, 998)
+[connection signal="health_depleted" from="Player" to="." method="_on_player_health_depleted"]
+[connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]
