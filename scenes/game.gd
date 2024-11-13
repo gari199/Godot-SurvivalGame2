@@ -22,4 +22,7 @@ func _on_player_health_depleted() -> void:
 	%GameOverScreen.visible = true
 	#Pausamos!
 	get_tree().paused = true
-	
+
+func _on_player_you_won() -> void:
+	%WinScreen.visible = true
+	get_tree().paused = true

@@ -21,45 +21,6 @@ layer = -5
 offset_right = 1920.0
 offset_bottom = 1081.0
 
-[node name="Player" parent="." instance=ExtResource("1_fjwbn")]
-position = Vector2(986, 527)
-
-[node name="Camera2D" type="Camera2D" parent="Player"]
-position = Vector2(-25, 13)
-
-[node name="Path2D" type="Path2D" parent="Player"]
-position = Vector2(-986, -527)
-curve = SubResource("Curve2D_658ld")
-
-[node name="PathFollow2D" type="PathFollow2D" parent="Player/Path2D"]
-unique_name_in_owner = true
-position = Vector2(-166, -145)
-rotation = 0.00317603
-
-[node name="PineTrees" type="Node" parent="."]
-
-[node name="PineTree" parent="PineTrees" instance=ExtResource("2_s0kfs")]
-position = Vector2(261, 808)
-
-[node name="PineTree2" parent="PineTrees" instance=ExtResource("2_s0kfs")]
-position = Vector2(305, 831)
-
-[node name="PineTree3" parent="PineTrees" instance=ExtResource("2_s0kfs")]
-position = Vector2(1479, 782)
-
-[node name="PineTree4" parent="PineTrees" instance=ExtResource("2_s0kfs")]
-position = Vector2(460, 267)
-
-[node name="PineTree5" parent="PineTrees" instance=ExtResource("2_s0kfs")]
-position = Vector2(1360, 262)
-
-[node name="PineTree6" parent="PineTrees" instance=ExtResource("2_s0kfs")]
-position = Vector2(576, 560)
-
-[node name="Timer" type="Timer" parent="."]
-wait_time = 0.3
-autostart = true
-
 [node name="GameOverScreen" type="CanvasLayer" parent="."]
 unique_name_in_owner = true
 visible = false
@@ -90,5 +51,65 @@ theme_override_colors/font_color = Color(0.92549, 0, 0, 1)
 theme_override_font_sizes/font_size = 57
 text = "Game Over"
 
+[node name="WinScreen" type="CanvasLayer" parent="."]
+unique_name_in_owner = true
+visible = false
+
+[node name="ColorRect" type="ColorRect" parent="WinScreen"]
+offset_right = 1923.0
+offset_bottom = 1084.0
+color = Color(0.447059, 0.792157, 0.392157, 0.415686)
+
+[node name="Label" type="Label" parent="WinScreen/ColorRect"]
+layout_mode = 0
+offset_left = 729.0
+offset_top = 469.0
+offset_right = 1279.0
+offset_bottom = 566.0
+theme_override_colors/font_color = Color(0.927881, 0.396908, 0.641059, 1)
+theme_override_font_sizes/font_size = 71
+text = "YOU HAVE WON"
+horizontal_alignment = 1
+
+[node name="Player" parent="." instance=ExtResource("1_fjwbn")]
+position = Vector2(986, 527)
+
+[node name="Camera2D" type="Camera2D" parent="Player"]
+position = Vector2(-25, 13)
+
+[node name="Path2D" type="Path2D" parent="Player"]
+position = Vector2(-986, -527)
+curve = SubResource("Curve2D_658ld")
+
+[node name="PathFollow2D" type="PathFollow2D" parent="Player/Path2D"]
+unique_name_in_owner = true
+position = Vector2(-166, -145)
+rotation = 0.00317603
+
+[node name="Timer" type="Timer" parent="."]
+wait_time = 3.0
+autostart = true
+
+[node name="PineTrees" type="Node" parent="."]
+
+[node name="PineTree" parent="PineTrees" instance=ExtResource("2_s0kfs")]
+position = Vector2(261, 808)
+
+[node name="PineTree2" parent="PineTrees" instance=ExtResource("2_s0kfs")]
+position = Vector2(305, 831)
+
+[node name="PineTree3" parent="PineTrees" instance=ExtResource("2_s0kfs")]
+position = Vector2(1479, 782)
+
+[node name="PineTree4" parent="PineTrees" instance=ExtResource("2_s0kfs")]
+position = Vector2(460, 267)
+
+[node name="PineTree5" parent="PineTrees" instance=ExtResource("2_s0kfs")]
+position = Vector2(1360, 262)
+
+[node name="PineTree6" parent="PineTrees" instance=ExtResource("2_s0kfs")]
+position = Vector2(576, 560)
+
 [connection signal="health_depleted" from="Player" to="." method="_on_player_health_depleted"]
+[connection signal="you_won" from="Player" to="." method="_on_player_you_won"]
 [connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]
